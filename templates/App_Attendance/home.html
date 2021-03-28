@@ -1,0 +1,64 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% block body %}
+    <style>
+        .profile-pic {
+            width: 400px;
+            height: 400px;
+            padding: 0 50px 50px 50px;
+        }
+
+        .teacher-form {
+            padding: 0 30px 30px;
+        }
+
+        .student-adding-form {
+            padding: 50px;
+            -webkit-box-shadow: 0 0 10px #cccccc;
+            margin: 20px;
+            border-radius: 2%;
+        }
+    </style>
+
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <img class="profile-pic" src="{{ user.faculty.profile_pic.url }}" alt="{{ user.username }}">
+        </div>
+        <div class="col-md-3">
+            <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+        </div>
+        <div class="col-md-4 teacher-form">
+            {% if teacher_form %}
+                <form method="post" class="form-group" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <legend>Teacher Update Form</legend>
+                    <fieldset class="form-group">
+                        {{ teacher_form|crispy }}
+                    </fieldset>
+                    <div class="form-group mt-5">
+                        <input type="submit" name="teacher_submit" class="btn btn-success">
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 student-adding-form">
+            <form method="post" class="form-group" enctype="multipart/form-data">
+                {% csrf_token %}
+                <legend style="text-align: center; font-size: 40px; font-weight: 600">Add Student</legend>
+                <fieldset class="form-group">
+                    {{ student_form|crispy }}
+                </fieldset>
+                <div class="form-group mt-5">
+                    <input type="submit" name="student_submit" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+{% endblock %}

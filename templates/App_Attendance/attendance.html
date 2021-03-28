@@ -1,0 +1,21 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form method="post" class="form-group">
+                {% csrf_token %}
+                <legend>Take Attendance</legend>
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group pt-3">
+                    <input type="submit" class="btn btn-success" value="Submit">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+{% endblock %}
